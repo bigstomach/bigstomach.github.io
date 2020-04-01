@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="题解Allocation 手速题 题意是有$N$个房屋出售，第$i$个房屋价值$A_i$刀，你有$B$刀的预算去花费。求能够买到的最大的房屋数量。 时限$15s$ $1\leq T\leq100$  $1\leq N\leq 1e5$ 尽量买便宜的房子，$sort$一下就行了  Plates 暴力dp 题意是有$n$堆盘子，每堆有$k$个盘子，每个盘子一个价值，$Dr.Patel$需要拿$p$个盘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kickstart round A">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/kickstart-round-A/index.html">
+<meta property="og:site_name" content="bigstomach_blog">
+<meta property="og:description" content="题解Allocation 手速题 题意是有$N$个房屋出售，第$i$个房屋价值$A_i$刀，你有$B$刀的预算去花费。求能够买到的最大的房屋数量。 时限$15s$ $1\leq T\leq100$  $1\leq N\leq 1e5$ 尽量买便宜的房子，$sort$一下就行了  Plates 暴力dp 题意是有$n$堆盘子，每堆有$k$个盘子，每个盘子一个价值，$Dr.Patel$需要拿$p$个盘">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-01T07:05:58.000Z">
+<meta property="article:modified_time" content="2020-04-01T09:28:38.820Z">
+<meta property="article:author" content="bigstomach">
+<meta property="article:tag" content="kickstart">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>kickstart round A</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/01/kickstart-round-A/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/01/kickstart-round-A/&text=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/01/kickstart-round-A/&is_video=false&description=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=kickstart round A&body=Check out this article: http://yoursite.com/2020/04/01/kickstart-round-A/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/01/kickstart-round-A/&name=kickstart round A&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/01/kickstart-round-A/&t=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-number">1.</span> <span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Allocation"><span class="toc-number">1.1.</span> <span class="toc-text">Allocation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plates"><span class="toc-number">1.2.</span> <span class="toc-text">Plates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workout"><span class="toc-number">1.3.</span> <span class="toc-text">Workout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundling"><span class="toc-number">1.4.</span> <span class="toc-text">Bundling</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        kickstart round A
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">bigstomach_blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-01T07:05:58.000Z" itemprop="datePublished">2020-04-01</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/kickstart/" rel="tag">kickstart</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="Allocation"><a href="#Allocation" class="headerlink" title="Allocation"></a>Allocation</h2><ul>
+<li>手速题</li>
+<li>题意是有$N$个房屋出售，第$i$个房屋价值$A_i$刀，你有$B$刀的预算去花费。求能够买到的最大的房屋数量。</li>
+<li>时限$15s$</li>
+<li>$1\leq T\leq100$ </li>
+<li>$1\leq N\leq 1e5$</li>
+<li>尽量买便宜的房子，$sort$一下就行了</li>
+</ul>
+<h2 id="Plates"><a href="#Plates" class="headerlink" title="Plates"></a>Plates</h2><ul>
+<li>暴力dp</li>
+<li>题意是有$n$堆盘子，每堆有$k$个盘子，每个盘子一个价值，$Dr.Patel$需要拿$p$个盘子，假如他要拿某一个盘子，他必须把这堆所有在这个盘子以上的盘子拿走。求最大的价值和。</li>
+<li>$1\leq T\leq 100$ </li>
+<li>$1\leq K\leq 30$</li>
+<li>$1\leq N\leq 50$</li>
+<li>首先想到的是爆搜，提交发现大数据TLE，本以为是剪枝不够又提交了几发</li>
+<li>后来想到用$dp$来解决，$dp[i][j]$代表前$i$堆一共取$j$个盘子的最大价值，状态方程$dp[i][j]=max(dp[i-1][j-k]+sum[i][k],dp[i-1][j])$(其中$sum[i][j]$代表第$i$堆前$j$个盘子的价值和），还能降$dp$为一维数组</li>
+</ul>
+<h2 id="Workout"><a href="#Workout" class="headerlink" title="Workout"></a>Workout</h2><ul>
+<li>二分</li>
+<li>题意简化就是在含有$N$个数字的递增数列中加入最多$K$个数字，使得相邻两个数字差的最大值最小，输出这个最大值</li>
+<li>$1\leq T\leq 100$ </li>
+<li>$2\leq N\leq 1e5$</li>
+<li>$1\leq K\leq 1e5$</li>
+<li>起初想了个假的算法，用最大堆求数列最大差然后平均分成两半继续放回堆中，大数据就一直wa</li>
+<li>想到算法假了，用二分答案就能解决，也没什么好说</li>
+</ul>
+<h2 id="Bundling"><a href="#Bundling" class="headerlink" title="Bundling"></a>Bundling</h2><ul>
+<li>$trie$,递归</li>
+<li>我没过，某人用了我的$trie$模版过了</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-number">1.</span> <span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Allocation"><span class="toc-number">1.1.</span> <span class="toc-text">Allocation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plates"><span class="toc-number">1.2.</span> <span class="toc-text">Plates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workout"><span class="toc-number">1.3.</span> <span class="toc-text">Workout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundling"><span class="toc-number">1.4.</span> <span class="toc-text">Bundling</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/01/kickstart-round-A/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/01/kickstart-round-A/&text=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/01/kickstart-round-A/&is_video=false&description=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=kickstart round A&body=Check out this article: http://yoursite.com/2020/04/01/kickstart-round-A/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/01/kickstart-round-A/&title=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/01/kickstart-round-A/&name=kickstart round A&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/01/kickstart-round-A/&t=kickstart round A" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020
+    bigstomach
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
